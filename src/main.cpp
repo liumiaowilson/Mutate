@@ -39,11 +39,27 @@ int main(int argc, char *argv[])
     signal(SIGTERM, quit);
     signal(SIGHUP, quit);
     signal(SIGINT, quit);
+    
+    if (argc > 1)
+    {
+        if (argv[1] == std::string("status"))
+        {
+            if (a.isRunning())
+            {
+                printf("running\n");
+                return 0;
+            }
+            else 
+            {
+                printf("not running\n");
+                return 0;
+            }
+        }
+    }
+
     if (a.isRunning())
     {
-        QMessageBox* x = new QMessageBox();
-        x->setText(QObject::tr("Mutate is already running."));
-        x->exec();
+        printf("already running\n");
         return -1;
     }
     a.setWindowIcon(QIcon(SEARCHICON));
